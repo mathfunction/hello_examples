@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<script type="text/javascript">
+	var DICTJSON = {};
+	// 讀取 json 檔
+	function readJson(_id){
+		let file = document.getElementById(_id).files[0];
+		if(file){
+		    let reader = new FileReader();
+		    reader.readAsText(file, "UTF-8");
+		    reader.onload = function(evt){
+		        DICTJSON = JSON.parse(evt.target.result);
+		        concatURL("JSONFORMAT/"+JSON.stringify(DICTJSON));
+		    }
+		    reader.onerror = function (evt) {
+		        console.log("error reading file");
+		    }
+		}//endif
+		
+	}//end_jsonHandle
+
+	// 把資訊併在 URL 後面
+	function concatURL(_str){
+	  	let xhttp = new XMLHttpRequest();
+
+	  	xhttp.onreadystatechange = function() {
+	  		// ########################################################
+	  		// 收到回應字串會在 xhttp.responseText 
+	  		if (this.readyState == 4 && this.status == 200) {
+	  			console.log("Server -> Client:")
+	  			console.log(xhttp.responseText);
+	  		}//endif
+	  		//#########################################################
+	  	}
+	  	
+	  	// 寄給 Server  (註: 實際應用可能要加密 _str)
+	  	xhttp.open('GET',_str);
+	  	xhttp.send();
+	}
+
+</script>
+
+
+<body>
+	<hr>
+	<!-- 上傳按紐接 readJson 函式 -->
+	<input id="json-file" type="file"/> <input value='確認' type='submit' onclick='readJson("json-file")'>
+	<hr>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+	"server":false,
+	"content":{
+		"single_value":1,
+		"dictionary":{
+			"key1":1,
+			"key2":2,
+			"key3":3
+		},
+		"array":[1,2,3]
+	}
+
+}
